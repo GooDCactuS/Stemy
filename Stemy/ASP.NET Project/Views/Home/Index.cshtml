@@ -1,0 +1,17 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ASP.NET_Project.Models.UserPictureModel
+@{
+    ViewData["Title"] = "ASP.NET Project";
+}
+
+<form enctype="multipart/form-data" method="post" asp-controller="Home" asp-action="Index">
+    <label asp-for="Picture">Картинка</label>
+    <input asp-for="Picture" type="file" accept="image/jpeg" /><br />
+    <label asp-for="Description">Описание</label><br />
+    <textarea asp-for="Description"></textarea><br />
+
+    <div><input type="submit" value="Отправить" /></div>
+
+</form>
+
+

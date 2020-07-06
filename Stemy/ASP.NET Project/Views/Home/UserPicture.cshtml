@@ -1,0 +1,14 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ASP.NET_Project.Models.UserPictureModel
+@{
+    ViewData["Title"] = "UserPicture";
+    <label>Описание: </label>
+    <label>@Model.Description</label>
+    <br />
+    <label>Оригинальный размер:</label><br/>
+    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Picture)" />
+    <label>Размер 128х128:</label><br/>
+    <img width="128" height="128" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Picture)"/>                             
+}
+
+
