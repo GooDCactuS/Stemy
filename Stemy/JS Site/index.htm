@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" ; charset="utf-8">
+  <title>JS Site</title>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/i18n/jquery-ui-i18n.min.js"></script>
+  <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+
+  <script type="text/javascript">
+    $(function () {
+
+    });
+
+    function runValidation() {
+      document.getElementById('message').textContent = "Введенные данные обрабатываются...";
+      document.getElementById('message').hidden = false;
+      setTimeout(checkForm, 10000);
+    }
+
+    function validateEmail(email) {
+      var reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return reg.test(email);
+    }
+
+    function validatePhone(phone) {
+      var reg = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+      return reg.test(phone);
+    }
+
+    function checkForm() {
+      var isEverythingCorrect = true;
+      var objEmail = document.pageForm.email;
+      var objPhone = document.pageForm.phone;
+
+      var phoneValidation = validatePhone(objPhone.value);
+      var emailValidation = validateEmail(objEmail.value);
+      if (phoneValidation) {
+        $('[name=phone]').css("background-color", "green");
+      } else {
+        $('[name=phone]').css("background-color", "red");
+        isEverythingCorrect = false;
+      }
+
+      if (emailValidation) {
+        $('[name=email]').css("background-color", "green");
+      } else {
+        $('[name=email]').css("background-color", "red");
+        isEverythingCorrect = false;
+      }
+
+      let list = [document.pageForm.fullName, document.pageForm.birthYear, document.pageForm.address]
+
+      list.forEach(element => {
+        if (element.value != "") {
+          $(`[name=${element.name}]`).css("background-color", "green");
+        } else {
+          $(`[name=${element.name}]`).css("background-color", "red");
+          isEverythingCorrect = false;
+        }
+      });
+
+      if (isEverythingCorrect) {
+        document.getElementById('message').textContent = "Все данные корректны."
+      } else {
+        document.getElementById('message').textContent = "Проверьте введенные данные."
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+  <form name="pageForm">
+    <label for="fullName">ФИО:</label>
+    <input type="text" name="fullName">
+    <br>
+    <label for="birthDate">Дата рождения:</label>
+    <input type="date" name="birthYear">
+    <br>
+    <label for="address">Город проживания:</label>
+    <input type="text" name="address">
+    <br>
+    <label for="phone">Телефон:</label>
+    <input type="text" name="phone">
+    <br>
+    <label for="email">Email:</label>
+    <input type="text" name="email">
+    <br><br>
+    <input type="button" value="Отправить" onclick="runValidation()">
+    <br />
+    <div id="message" hidden="true"></div>
+
+  </form>
+</body>
+
+</html>
